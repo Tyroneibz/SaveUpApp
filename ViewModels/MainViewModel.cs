@@ -1,8 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using SaveUp.Models;
-using SaveUp.Services;
 using Microsoft.Maui.Controls;
 
 namespace SaveUp.ViewModels
@@ -11,6 +9,7 @@ namespace SaveUp.ViewModels
     {
         public ObservableCollection<SavedItem> Items { get; }
         public ICommand AddNewEntryCommand { get; }
+        public ICommand DeleteItemCommand { get; }
 
         private string _totalSaved;
         public string TotalSaved
@@ -23,6 +22,8 @@ namespace SaveUp.ViewModels
         {
             Items = new ObservableCollection<SavedItem>();
             AddNewEntryCommand = new Command(OnAddNewEntry);
+            DeleteItemCommand = new Command<SavedItem>(OnDeleteItem);
+
             LoadItemsAsync(); // Load entries when initializing ViewModel
 
             // Subscribe to the "AddItem" message from EntryViewModel
@@ -56,6 +57,15 @@ namespace SaveUp.ViewModels
         private async void OnAddNewEntry()
         {
             await Shell.Current.GoToAsync(nameof(Views.EntryPage));
+        }
+
+        private void OnDeleteItem(SavedItem item)
+        {
+            if (Items.Contains(item))
+            {
+                Items.Remove(item);
+                UpdateTotalSaved();
+            }
         }
     }
 }

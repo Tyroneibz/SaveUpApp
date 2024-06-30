@@ -11,7 +11,7 @@
         <Label Text="Save Up" FontSize="Large" HorizontalOptions="Center" />
         <Label Text="{Binding TotalSaved}" FontSize="Medium" HorizontalOptions="Center" />
 
-        <ListView ItemsSource="{Binding Items}" SelectionMode="None">
+        <ListView ItemsSource="{Binding Items}" SelectionMode="None" ItemTapped="OnItemTapped">
             <ListView.Header>
                 <StackLayout Orientation="Horizontal" Padding="5">
                     <Label Text="Description" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
