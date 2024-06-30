@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SaveUp.ViewModels"
+             x:Class="SaveUp.Views.StartPage"
+             Title="SaveUp">
+    <ContentPage.BindingContext>
+        <local:MainViewModel />
+    </ContentPage.BindingContext>
+    <StackLayout Padding="10">
+        <Label Text="Save Up" FontSize="Large" HorizontalOptions="Center" />
+        <Label Text="{Binding TotalSaved}" FontSize="Medium" HorizontalOptions="Center" />
+
+        <ListView ItemsSource="{Binding Items}" SelectionMode="None">
+            <ListView.Header>
+                <StackLayout Orientation="Horizontal" Padding="5">
+                    <Label Text="Description" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                    <Label Text="Price (CHF)" VerticalOptions="Center" HorizontalOptions="End" />
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="5">
+                            <Label Text="{Binding Description}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                            <Label Text="{Binding Price}" VerticalOptions="Center" HorizontalOptions="End" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Text="Add New Entry" Command="{Binding AddNewEntryCommand}" HorizontalOptions="FillAndExpand" />
+    </StackLayout>
+</ContentPage>
